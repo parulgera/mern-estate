@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import userRouter from './routes/user.route.js'
 
 dotenv.config()
 
@@ -10,10 +11,22 @@ mongoose.connect(process.env.MONGO).then(() => {
 }).catch((err) => { 
     console.log(err)
 })
-// we cannot use the process.env.MONGO environment variabdirectly inside the mongoose package, we need to install package dotenv
+// we cannot use the process.env.MONGO environment variable directly inside the mongoose package, we need to install package dotenv
 
 const app = express()
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000')
 })
+// api routes
+// app.get('/test', (req, res) => {
+//     res.send('Hello World')
+// })
+
+// app.get('/test1', (req, res) => {
+//     res.json('Hello World')
+// })
+// we cannot create all the api's here, we need to create folder
+
+//instead of this, we need to create a proxy
+app.use('/api/users', userRouter)
