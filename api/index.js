@@ -34,3 +34,15 @@ app.listen(3000, () => {
 //instead of this, we need to create a proxy
 app.use('/api/users', userRouter)
 app.use('/api/auth', authRouter)
+
+//this is the error handling middleware
+// we will use this, means next is the function that will be called when the error occurs
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500
+    const message = err.message || 'Internal Server Error'
+    return res.status(statusCode).json({
+        message,
+        success: false,
+        statusCode
+    })
+})
